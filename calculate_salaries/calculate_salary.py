@@ -17,6 +17,6 @@ def total_salary(path: str) -> tuple[int, float]:
     average = "{:.2f}".format(total / length)
     return total, average
     
-path = "./data.txt"
+path = "./salaries.txt"
 total, average = total_salary(path)
 print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
