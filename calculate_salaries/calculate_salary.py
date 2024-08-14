@@ -25,8 +25,7 @@ def total_salary(path: str) -> tuple[int, float]:
         return None
 
 
-if __name__ == "__main__":
-    path = "./salaries.txt"
-    total, average = total_salary(path)
-    print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
-
+# if __name__ == "__main__":
+#     path = "./salaries.txt"
+#     total, average = total_salary(path)
+#     print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
