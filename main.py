@@ -1,5 +1,6 @@
 from calculate_salaries.calculate_salary import total_salary
 from cats_statistics.cat_info import get_cats_info
+from display_directories import display_directory
 
 
 # Function for Task_1
@@ -18,7 +19,11 @@ def create_cat_dictionary():
     print(cats_info)
 
 
-if __name__ == "__main__":
-    calculate_salaries_statistics()  # Run Task1
+# Function for Task_3
 
-    create_cat_dictionary()  # Run Task2
+if __name__ == "__main__":
+    # calculate_salaries_statistics()  # Run Task1
+
+    # create_cat_dictionary()  # Run Task2
+
+    display_directory()
