@@ -23,9 +23,3 @@ def total_salary(path: str) -> tuple[int, float]:
     except FileNotFoundError:
         print(f"File {path} not found")
         return None
-
-
-# if __name__ == "__main__":
-#     path = "./salaries.txt"
-#     total, average = total_salary(path)
-#     print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")

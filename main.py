@@ -1,9 +1,9 @@
-# Task_1
-
 from calculate_salaries.calculate_salary import total_salary
+from cats_statistics.cat_info import get_cats_info
 
 
-def main():
+# Function for Task_1
+def calculate_salaries_statistics():
     path = "./salaries.txt"
     total, average = total_salary(path)
     print(
@@ -11,7 +11,14 @@ def main():
     )
 
 
-if __name__ == "__main__":
-    main()
+# Function for Task_2
+def create_cat_dictionary():
+    path = "./cats.txt"
+    cats_info = get_cats_info(path)
+    print(cats_info)
 
-# Task_2
+
+if __name__ == "__main__":
+    calculate_salaries_statistics()  # Run Task1
+
+    create_cat_dictionary()  # Run Task2
