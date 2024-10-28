@@ -1,6 +1,7 @@
 from calculate_salaries.calculate_salary import total_salary
 from cats_statistics.cat_info import get_cats_info
 from display_directories import display_directory
+from python_bot.bot import main as bot_command
 
 
 # Function for Task_1
@@ -26,4 +27,6 @@ if __name__ == "__main__":
 
     # create_cat_dictionary()  # Run Task2
 
-    display_directory()
+    # display_directory()
+
+    bot_command()  # Run Task4
