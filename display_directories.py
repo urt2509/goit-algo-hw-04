@@ -39,4 +39,5 @@ def display_directory():
         print("Enter directory name")
 
 
-display_directory()
+if __name__ == "__main__":
+    display_directory()
