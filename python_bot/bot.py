@@ -1,12 +1,19 @@
 PATH = "./contacts.txt"
 
 
-def get_contact_info(path: str = PATH) -> list[dict]:
+def get_contact_info(path: str = PATH) -> dict | None:
     try:
         with open(path, "r", encoding="utf-8") as file:
-            contacts = [dict(line.strip().split(" ") for line in file)]
-            # print(f"There are contacts from file: {contacts}") already done
+            contacts = {}
+            for line in file:
+                elements = line.strip().split(":", 1)
+                if len(elements) == 2:
+                    key, value = elements
+                    contacts[key] = value
+                else:
+                    pass
 
+            # print(f"Contact list: {contacts}")
         return contacts
 
     except FileNotFoundError:
@@ -14,7 +21,7 @@ def get_contact_info(path: str = PATH) -> list[dict]:
         return None
 
     except Exception as e:
-        print(f"Hello An unexpected error occurred: {e}")
+        print(f"An unexpected error occurred: {e}")
         return []
 
 
@@ -27,56 +34,61 @@ def parse_input(user_input):
         raise e
 
 
-def save_contact(path, contacts):
+def save_contact(contact):
+    path = PATH
+
     try:
-        with open(path, "w", encoding="utf-8") as file:
-            for name, phone in contacts.items():
-                file.write(f"{name}: {phone} \n")
+        with open(path, "a+", encoding="utf-8") as file:
+
+            name, phone = contact
+
+            file.write(f"{name}: {phone} \n")
+            file.seek(0)
+
+            contacts = get_contact_info(path)
+            # print(f"There are updated contacts {contacts}")
 
     except FileNotFoundError:
         print(f"File {path} not found")
         return None
 
 
-# def add_contact(args, contacts):
-#     name, phone = args
-
-#     if name in contacts:
-#         return f"This contact {name} with phone number {phone} is already exists"
-#     else:
-#         contacts.update({name: phone})
-#         save_contact(PATH, contacts)
-#         print(contacts)
-#         return "Contact added."
-
-
 def add_contact(args, path: str = PATH):
     name, phone = args
-    # print(name, phone) already done
 
     contacts = get_contact_info(path)
-    # print(f"This is add contacts {contacts}")  already done
 
     if name in contacts:
-        print(name)  # NOT YET DOING
-        return f"This contact {name} with phone number {phone} is already exists"
+        return f"Contact {name} is already exists"
     else:
+        contact = name, phone
+        # print(f"This is new contact: {contact}")
         contacts[name] = phone
-        save_contact(PATH, contacts)
-        print(contacts)
+        save_contact(contact)
         return "Contact added."
 
 
-def change_contact(args, contacts):
+def change_contact(args, path: str = PATH):
     name, phone = args
-    contacts.update({name: phone})
+    # contacts.update({name: phone})
     return "Contact updated."
+
+
+def show_phone(name):
+    phone = 0
+    return f"{phone}"
+
+
+def show_all():
+    contacts = get_contact_info(PATH)
+    if len(contacts):
+        return f"{contacts}"
+    else:
+        return "There is now contacts"
 
 
 def bot_main(path: str = PATH):
 
-    contacts = get_contact_info(path)
-    # print(f"This is a contact_list {contacts} from file {path}") already done
     print("Welcome to the assistant bot!")
 
     while True:
@@ -91,15 +103,21 @@ def bot_main(path: str = PATH):
                 print("How can I help you?")
             elif command == "add":
                 try:
-                    # print(add_contact(args, contacts))
                     print(add_contact(args))
                 except ValueError as e:
-                    print("hello", e)
+                    print(e)
             elif command == "change":
                 try:
-                    print(change_contact(args, contacts))
+                    print(change_contact(args))
                 except ValueError as e:
                     print(e)
+            elif command == "phone":
+                try:
+                    print(show_phone(args))
+                except ValueError as e:
+                    print(e)
+            elif command == "all":
+                print(show_all())
             else:
                 print("Invalid command.")
         except Exception:
