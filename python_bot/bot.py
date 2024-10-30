@@ -12,8 +12,6 @@ def get_contact_info(path: str = PATH) -> dict | None:
                     contacts[key] = value
                 else:
                     pass
-
-            # print(f"Contact list: {contacts}")
         return contacts
 
     except FileNotFoundError:
@@ -41,12 +39,9 @@ def save_contact(contact):
         with open(path, "a+", encoding="utf-8") as file:
 
             name, phone = contact
-
-            file.write(f"{name}: {phone} \n")
             file.seek(0)
 
-            contacts = get_contact_info(path)
-            # print(f"There are updated contacts {contacts}")
+            file.write(f"{name}: {phone} \n")
 
     except FileNotFoundError:
         print(f"File {path} not found")
@@ -62,7 +57,6 @@ def add_contact(args, path: str = PATH):
         return f"Contact {name} is already exists"
     else:
         contact = name, phone
-        # print(f"This is new contact: {contact}")
         contacts[name] = phone
         save_contact(contact)
         return "Contact added."
@@ -70,6 +64,7 @@ def add_contact(args, path: str = PATH):
 
 def change_contact(args, path: str = PATH):
     name, phone = args
+
     # contacts.update({name: phone})
     return "Contact updated."
 
@@ -84,7 +79,7 @@ def show_all():
     if len(contacts):
         return f"{contacts}"
     else:
-        return "There is now contacts"
+        return "There is no contacts"
 
 
 def bot_main(path: str = PATH):
@@ -105,17 +100,17 @@ def bot_main(path: str = PATH):
                 try:
                     print(add_contact(args))
                 except ValueError as e:
-                    print(e)
+                    print("Please, enter name and phone")
             elif command == "change":
                 try:
                     print(change_contact(args))
                 except ValueError as e:
-                    print(e)
+                    print("Please, enter name and new phone")
             elif command == "phone":
                 try:
                     print(show_phone(args))
                 except ValueError as e:
-                    print(e)
+                    print("Please, enter a name")
             elif command == "all":
                 print(show_all())
             else:

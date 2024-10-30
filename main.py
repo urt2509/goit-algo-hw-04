@@ -1,7 +1,7 @@
 from calculate_salaries.calculate_salary import total_salary
 from cats_statistics.cat_info import get_cats_info
 from display_directories import display_directory
-from python_bot.bot import bot_main, PATH
+from python_bot.bot import bot_main
 
 
 # Function for Task_1
@@ -26,7 +26,7 @@ def create_cat_dictionary():
 # Function for Task_4
 def bot_command():
 
-    contacts_list = bot_main(PATH)
+    contacts_list = bot_main()
     return contacts_list
 
 
