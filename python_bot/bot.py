@@ -13,11 +13,9 @@ def get_contact_info(path: str = PATH) -> dict | None:
                 else:
                     pass
         return contacts
-
     except FileNotFoundError:
         print(f"File {path} not found")
         return None
-
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         return []
@@ -34,25 +32,35 @@ def parse_input(user_input):
 
 def save_contact(contact):
     path = PATH
-
     try:
         with open(path, "a+", encoding="utf-8") as file:
-
             name, phone = contact
             file.seek(0)
-
             file.write(f"{name}: {phone} \n")
-
     except FileNotFoundError:
         print(f"File {path} not found")
         return None
 
 
+def update_contact(contact):
+    path = PATH
+    name, phone = contact
+    contacts = get_contact_info(path)
+    name = name.strip()
+    phone = phone.strip()
+    contacts[name] = phone
+    try:
+        with open(path, "w", encoding="utf-8") as file:
+            for name in contacts:
+                file.write(f"{name}:{contacts[name]}\n")
+
+    except FileNotFoundError:
+        print(f"File {path} not found")
+
+
 def add_contact(args, path: str = PATH):
     name, phone = args
-
     contacts = get_contact_info(path)
-
     if name in contacts:
         return f"Contact {name} is already exists"
     else:
@@ -64,22 +72,31 @@ def add_contact(args, path: str = PATH):
 
 def change_contact(args, path: str = PATH):
     name, phone = args
+    contacts = get_contact_info(path)
+    if name in contacts:
+        contact = name, phone
+        update_contact(contact)
+        return "Contact updated."
+    else:
+        return f"There is no contact {name}"
 
-    # contacts.update({name: phone})
-    return "Contact updated."
 
-
-def show_phone(name):
-    phone = 0
-    return f"{phone}"
+def show_phone(args, path: str = PATH):
+    name, *args = args
+    contacts = get_contact_info(path)
+    if name in contacts:
+        return contacts.get(name)
+    else:
+        return f"There is no contact {name}"
 
 
 def show_all():
-    contacts = get_contact_info(PATH)
+    path = PATH
+    contacts = get_contact_info(path)
     if len(contacts):
         return f"{contacts}"
     else:
-        return "There is no contacts"
+        return "There are no contacts"
 
 
 def bot_main(path: str = PATH):
