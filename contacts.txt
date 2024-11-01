@@ -1,4 +1,8 @@
 ann:4
 falk:4545
 PIetr:7
-greg:75757
+greg:66666666666
+Joke: 585858
+Fone: 787
+Ann: 7
+John:54

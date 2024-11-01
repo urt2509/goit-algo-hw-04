@@ -59,44 +59,53 @@ def update_contact(contact):
 
 
 def add_contact(args, path: str = PATH):
-    name, phone = args
-    contacts = get_contact_info(path)
-    if name in contacts:
-        return f"Contact {name} is already exists"
-    else:
-        contact = name, phone
-        contacts[name] = phone
-        save_contact(contact)
-        return "Contact added."
+    try:
+        name, phone = args
+        contacts = get_contact_info(path)
+        if name in contacts:
+            print(f"Contact {name} is already exists")
+        else:
+            contact = name, phone
+            contacts[name] = phone
+            save_contact(contact)
+            print("Contact added.")
+    except ValueError as e:
+        print("Please, enter name and phone")
 
 
 def change_contact(args, path: str = PATH):
-    name, phone = args
-    contacts = get_contact_info(path)
-    if name in contacts:
-        contact = name, phone
-        update_contact(contact)
-        return "Contact updated."
-    else:
-        return f"There is no contact {name}"
+    try:
+        name, phone = args
+        contacts = get_contact_info(path)
+        if name in contacts:
+            contact = name, phone
+            update_contact(contact)
+            print("Contact updated.")
+        else:
+            print(f"There is no contact {name}")
+    except ValueError as e:
+        print("Please, enter name and new phone")
 
 
 def show_phone(args, path: str = PATH):
-    name, *args = args
-    contacts = get_contact_info(path)
-    if name in contacts:
-        return contacts.get(name)
-    else:
-        return f"There is no contact {name}"
+    try:
+        name, *args = args
+        contacts = get_contact_info(path)
+        if name in contacts:
+            print(contacts.get(name))
+        else:
+            print(f"There is no contact {name}")
+    except ValueError as e:
+        print("Please, enter a name")
 
 
 def show_all():
     path = PATH
     contacts = get_contact_info(path)
     if len(contacts):
-        return f"{contacts}"
+        print(f"{contacts}")
     else:
-        return "There are no contacts"
+        print("There are no contacts")
 
 
 def bot_main(path: str = PATH):
@@ -114,22 +123,13 @@ def bot_main(path: str = PATH):
             elif command == "hello":
                 print("How can I help you?")
             elif command == "add":
-                try:
-                    print(add_contact(args))
-                except ValueError as e:
-                    print("Please, enter name and phone")
+                add_contact(args)
             elif command == "change":
-                try:
-                    print(change_contact(args))
-                except ValueError as e:
-                    print("Please, enter name and new phone")
+                change_contact(args)
             elif command == "phone":
-                try:
-                    print(show_phone(args))
-                except ValueError as e:
-                    print("Please, enter a name")
+                show_phone(args)
             elif command == "all":
-                print(show_all())
+                show_all()
             else:
                 print("Invalid command.")
         except Exception:
