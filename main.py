@@ -27,8 +27,8 @@ def bot_command():
 
 
 if __name__ == "__main__":
-    calculate_salaries_statistics()  # Run Task1
+    # calculate_salaries_statistics()  # Run Task1
 
-    create_cat_dictionary()  # Run Task2
+    # create_cat_dictionary()  # Run Task2
 
     bot_command()  # Run Task4

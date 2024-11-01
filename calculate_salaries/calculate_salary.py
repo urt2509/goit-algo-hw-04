@@ -4,14 +4,19 @@ def total_salary(path: str) -> tuple[int, float]:
             total = 0
             length = 0
             for line in file:
-                total += int(line.strip().split(",")[1])
+                total += float(line.strip().split(",")[1])
                 length += 1
 
-            average = "{:.2f}".format(total / length)
+            try:
+                average = "{:.2f}".format(total / length)
+            except ZeroDivisionError as e:
+                print("Error: division by zero")
+                return None
         if total:
-            return total, average
+            return "{:.2f}".format(total), average
         else:
             print("No salaries are available")
+            return "{:.2f}".format(total), average
 
     except FileNotFoundError:
         print(f"File {path} not found")
